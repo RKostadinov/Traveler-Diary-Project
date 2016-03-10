@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Photo;
 use App\Place;
+use App\Text;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -19,6 +21,7 @@ class PlacesController extends Controller
      */
     public function index()
     {
+
         $places = Auth::user()->places()->get();
         return view('places.index', ["places" => $places]);
     }
@@ -67,8 +70,9 @@ class PlacesController extends Controller
     {
         $place = Place::find($id);
         $photos = $place->photos()->get();
+        $text = $place->text()->get();
 
-        return view('places.show', ['place' => $place, 'photos' => $photos]);
+        return view('places.show', ['place' => $place, 'photos' => $photos, 'text' => $text]);
 
     }
 
@@ -104,5 +108,34 @@ class PlacesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showAddText($id){
+        $place = Place::find($id);
+        return view('texts.create',['place' => $place]);
+    }
+
+    public function showAddPhoto($id){
+    $place = Place::find($id);
+    return view('photo.create',['place' => $place]);
+}
+
+    public function addText(Request $request, $id){
+        $result = $request->all();
+        $result['placeId'] = $id;
+
+        Text::create($result);
+
+        return redirect('places/'.$id);
+    }
+
+    public function addPhoto(Request $request, $id){
+        $result = $request->all();
+        $result['placeId'] = $id;
+
+        Photo::create($result);
+
+        return redirect('places/'.$id);
+
     }
 }

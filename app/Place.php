@@ -12,4 +12,9 @@ class Place extends Model
     {
         return $this->hasMany('App\Photo', 'placeId');
     }
+
+    public function text()
+    {
+        return $this->hasOne('App\Text', 'placeId');
+    }
 }
