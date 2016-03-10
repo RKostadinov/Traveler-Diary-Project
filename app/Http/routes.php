@@ -34,7 +34,10 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('register', 'Auth\AuthController@showRegistrationForm');
     Route::post('register', 'Auth\AuthController@register');
-
+    Route::get('/places/{id}/showAddPhoto', 'PlacesController@showAddPhoto');
+    Route::get('/places/{id}/showAddText', 'PlacesController@showAddText');
+    Route::post('/places/{id}/addText', 'PlacesController@addText');
+    Route::post('/places/{id}/addPhoto', 'PlacesController@addPhoto');
     Route::resource('/places', "PlacesController");
 
     Route::get('/home', 'HomeController@index');
