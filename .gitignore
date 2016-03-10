@@ -4,3 +4,8 @@
 Homestead.yaml
 Homestead.json
 .env
+.idea/
+composer.phar
+storage/debugbar/.gitignore
+public/uploads/46915.jpg
+storage/
