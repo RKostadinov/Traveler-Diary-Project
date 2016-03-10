@@ -11,6 +11,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+
 
 class PlacesController extends Controller
 {
@@ -107,35 +109,60 @@ class PlacesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Place::destroy($id);
+        return redirect("places");
     }
 
-    public function showAddText($id){
+    public function showAddText($id)
+    {
         $place = Place::find($id);
-        return view('texts.create',['place' => $place]);
+        return view('texts.create', ['place' => $place]);
     }
 
-    public function showAddPhoto($id){
-    $place = Place::find($id);
-    return view('photo.create',['place' => $place]);
-}
+    public function showAddPhoto($id)
+    {
+        $place = Place::find($id);
+        return view('photo.create', ['place' => $place]);
+    }
 
-    public function addText(Request $request, $id){
+    public function addText(Request $request, $id)
+    {
         $result = $request->all();
         $result['placeId'] = $id;
 
         Text::create($result);
 
-        return redirect('places/'.$id);
+        return redirect('places/' . $id);
     }
 
-    public function addPhoto(Request $request, $id){
+    public function addPhoto(Request $request, $id)
+    {
         $result = $request->all();
         $result['placeId'] = $id;
 
-        Photo::create($result);
+        $rules = array(
+            'file' => 'image|max:3000',
+        );
 
-        return redirect('places/'.$id);
+        $validation = Validator::make($result, $rules);
+
+        if ($validation->fails()) {
+            return \Response::make($validation->errors->first(), 400);
+        }
+
+        $destinationPath = 'uploads'; // upload path
+        $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
+        $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+        $upload_success = Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+
+        $result['photoUrl'] = $destinationPath . '\\' . $fileName;
+        if ($upload_success) {
+            Photo::create($result);
+            return \Response::json('success', 200);
+        } else {
+            return \Response::json('error', 400);
+        }
 
     }
+
 }

@@ -10,7 +10,7 @@
                         @foreach($places as $place)
                             <div>
                            <a href="/places/{{$place->id}}">
-                               <img src="/uploads/{{$place->mainPhoto}}">
+                               <img src="/uploads/{{$place->mainPhoto}}"  height="200" width="200">
                            </a>
                            <span>{{$place->name}}</span>
                             </div>
