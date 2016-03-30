@@ -16,6 +16,7 @@
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
     <link rel="stylesheet" href="/assets/css/dropzone.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
 
     <style>
         body {
