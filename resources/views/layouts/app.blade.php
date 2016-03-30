@@ -13,10 +13,9 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/jquery-ui.min.css">
-
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="/assets/css/dropzone.css">
 
     <style>
         body {
@@ -51,6 +50,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
+                    @if (!Auth::guest())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Places <span class="caret"></span></a>
 
@@ -59,6 +59,9 @@
                             <li><a href="{{ url('/places/create') }}"><i class="fa fa-btn fa-sign-out"></i>Add</a></li>
                         </ul>
                     </li>
+                        <li><a href="{{ url('/friends') }}">Friends</a></li>
+
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -74,7 +77,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-sign-out"></i>Setings</a></li>
+                                <li><a href="/user/{{Auth::user()->id}}/edit"><i class="fa fa-btn fa-sign-out"></i>Settings</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -87,9 +90,10 @@
     @yield('content')
 
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/dropzone.js"></script>
 
     @yield('scripts')
 </body>

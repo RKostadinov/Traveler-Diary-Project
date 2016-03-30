@@ -38,7 +38,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/places/{id}/showAddText', 'PlacesController@showAddText');
     Route::post('/places/{id}/addText', 'PlacesController@addText');
     Route::post('/places/{id}/addPhoto', 'PlacesController@addPhoto');
+    Route::get('/places/{id}/toggleVisibility', 'PlacesController@toggleVisibility');
     Route::resource('/places', "PlacesController");
+    Route::resource('/user', "UserController");
+    Route::controller('/friends', "FriendsController");
 
     Route::get('/home', 'HomeController@index');
 });
