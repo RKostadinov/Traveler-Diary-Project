@@ -8,6 +8,7 @@
                     <div class="panel-heading">Settings</div>
                     <div class="panel-body">
                         {!! Form::model($user,['action'=>['UserController@update', $user->id], 'method' => 'PATCH', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! csrf_field() !!}
                         <div class="form-group">
                             <label for="firstName" class="col-sm-3 control-label">Profile picture:</label>
                             <div class="col-sm-9">
@@ -38,7 +39,7 @@
                         <div class="form-group">
                             <label for="email" class="col-sm-3 control-label">Email</label>
                             <div class="col-sm-9">
-                                {!! Form::email("email",null,['class'=>'form-control', 'required'=>'']) !!}
+                                <p class="form-control-static">{{$user->email}}</p>
                             </div>
                         </div>
 

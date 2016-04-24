@@ -8,9 +8,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Places</div>
                     <div class="panel-body">
-                        <h2 class="subheader">Your Friends</h2>
+                        <h2 class="subheader text-center">Your Friends</h2>
 
-                        <table border="1" style="width:100%;">
+                        <table style="width:100%;" class="table table-striped">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -28,27 +28,25 @@
                             @endforeach
                             </tbody>
                         </table>
-
-                        <h2 class="subheader">Other People</h2>
-                        <table border="1" style="width:100%;">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Option</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($not_friends as $friend)
+                            <h2 class="subheader text-center">Other People</h2>
+                            <table style="width:100%;" class="table table-striped">
+                                <thead>
                                 <tr>
-                                    <td>{{ $friend->username }}</td>
-                                    <td>{{ $friend->email }}</td>
-                                    <td>{!! link_to_action('FriendsController@getAddFriend', 'Add friend', array('id' => $friend->id)) !!}</td>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Option</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-
+                                </thead>
+                                <tbody>
+                                @foreach($not_friends as $friend)
+                                    <tr>
+                                        <td>{{ $friend->username }}</td>
+                                        <td>{{ $friend->email }}</td>
+                                        <td>{!! link_to_action('FriendsController@getAddFriend', 'Add friend', array('id' => $friend->id)) !!}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>

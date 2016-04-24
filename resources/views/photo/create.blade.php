@@ -9,7 +9,7 @@
                     <div class="panel-body">
 
                         <div class="dropzone" id="dropzoneFileUpload"></div>
-
+                        <button id="addBtn">Add photos</button>
                     </div>
                 </div>
             </div>
@@ -24,10 +24,12 @@
         var token = "{{ Session::getToken() }}";
         Dropzone.autoDiscover = false;
         var myDropzone = new Dropzone("div#dropzoneFileUpload", {
-            url: baseUrl+"/places/{{$place->id}}/addPhoto",
+            url: baseUrl+"/places/{{$place->id}}/addphoto",
             params: {
                 _token: token
-            }
+            },
+            autoProcessQueue: false
+
         });
         Dropzone.options.myAwesomeDropzone = {
             paramName: "file", // The name that will be used to transfer the file
@@ -35,8 +37,12 @@
             addRemoveLinks: true,
             accept: function(file, done) {
 
-            },
+            }
         };
+        $('#addBtn').click(function(){
+            myDropzone.processQueue();
+        });
+
     </script>
 
 @endsection

@@ -1,7 +1,6 @@
-
+{{ csrf_field() }}
 <div>
-    {!! Form::label("text","Description") !!}
     {!! Form::textarea("text") !!}
 </div>
-
-<div>{!! Form::submit('Add') !!}</div>
+<br>
+<div>{!! Form::submit('Add', ['class' => 'btn btn-default center-block']) !!}</div>
