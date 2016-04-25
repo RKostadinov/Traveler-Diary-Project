@@ -34,11 +34,11 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('register', 'Auth\AuthController@showRegistrationForm');
     Route::post('register', 'Auth\AuthController@register');
-    Route::get('/places/{id}/showAddPhoto', 'PlacesController@showAddPhoto');
-    Route::get('/places/{id}/showAddText', 'PlacesController@showAddText');
-    Route::post('/places/{id}/addText', 'PlacesController@addText');
-    Route::post('/places/{id}/addPhoto', 'PlacesController@addPhoto');
-    Route::get('/places/{id}/toggleVisibility', 'PlacesController@toggleVisibility');
+    Route::get('/places/{id}/showaddphoto', 'PlacesController@showAddPhoto');
+    Route::get('/places/{id}/showaddtext', 'PlacesController@showAddText');
+    Route::post('/places/{id}/addtext', 'PlacesController@addText');
+    Route::post('/places/{id}/addphoto', 'PlacesController@addPhoto');
+    Route::get('/places/{id}/togglevisibility', 'PlacesController@toggleVisibility');
     Route::resource('/places', "PlacesController");
     Route::resource('/user', "UserController");
     Route::controller('/friends', "FriendsController");
