@@ -17,4 +17,9 @@ class Place extends Model
     {
         return $this->hasOne('App\Text', 'placeId');
     }
+
+    public function user()
+    {
+        return $this->hasOne('App\User', 'id', 'userId');
+    }
 }

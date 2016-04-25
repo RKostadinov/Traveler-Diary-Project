@@ -44,7 +44,7 @@ class PlacesController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\StorePlaceRequest $request)
     {
         $result = $request->all();
         $result['userId'] = Auth::user()->id;
@@ -56,10 +56,15 @@ class PlacesController extends Controller
                 Input::file('mainPhoto')->move($destinationPath, $fileName);
                 $result['mainPhoto'] = $fileName;
             }
-
-            Place::create($result);
-            return redirect('/places');
         }
+
+       $placeId =  Place::create($result);
+        Text::create([
+            'placeId' => $placeId,
+            'text' => " "
+        ]);
+
+        return redirect('/places');
     }
 
     /**
@@ -73,8 +78,9 @@ class PlacesController extends Controller
         $place = Place::find($id);
         $photos = $place->photos()->get();
         $text = $place->text()->get();
+        $user = $place->user;
 
-        return view('places.show', ['place' => $place, 'photos' => $photos, 'text' => $text]);
+        return view('places.show', ['place' => $place, 'photos' => $photos, 'text' => $text, 'user' => $user]);
 
     }
 
@@ -116,12 +122,15 @@ class PlacesController extends Controller
     public function showAddText($id)
     {
         $place = Place::find($id);
-        return view('texts.create', ['place' => $place]);
+        $desc = $place->text();
+
+        return view('texts.create', ['place' => $place, 'text' => $desc]);
     }
 
     public function showAddPhoto($id)
     {
         $place = Place::find($id);
+
         return view('photo.create', ['place' => $place]);
     }
 
@@ -165,4 +174,10 @@ class PlacesController extends Controller
 
     }
 
+    public function toggleVisibility($id){
+        $place = Place::find($id);
+        $place->public = !$place->public;
+        $place->save();
+        return redirect()->back();
+    }
 }
